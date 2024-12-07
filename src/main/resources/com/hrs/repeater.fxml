@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import com.hrs.ui.LineNumberedTextArea?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.hrs.RepeaterController"
+      spacing="10">
+
+    <padding>
+        <Insets top="10" right="10" bottom="10" left="10"/>
+    </padding>
+
+    <HBox spacing="10" alignment="CENTER_LEFT">
+        <Label text="Target URL:"/>
+        <TextField fx:id="targetUrlField" HBox.hgrow="ALWAYS"/>
+        <Button text="Send" onAction="#sendRequest"/>
+    </HBox>
+
+    <SplitPane VBox.vgrow="ALWAYS" orientation="HORIZONTAL">
+        <VBox spacing="5" minWidth="500">
+            <Label text="Request" style="-fx-font-weight: bold;"/>
+            <TabPane VBox.vgrow="ALWAYS">
+                <Tab text="Raw" closable="false">
+                    <VBox>
+                        <HBox spacing="10" alignment="CENTER_LEFT">
+                            <Button fx:id="reqLengthButton" text="Req. Length" onAction="#calculateRequestLength"/>
+                            <Button text="Update CL" onAction="#updateContentLength"/>
+                            <Button fx:id="updateTeButton" text="Update TE" onAction="#updateTeLength"/>
+                            <Button text="Add CL.TE Prefix" onAction="#addClTePrefix"/>
+                            <Button text="Add TE.CL Prefix" onAction="#addTeClPrefix"/>
+                        </HBox>
+                        <LineNumberedTextArea fx:id="rawRequestArea" VBox.vgrow="ALWAYS"/>
+                    </VBox>
+                </Tab>
+                <Tab text="Headers" closable="false">
+                    <TableView fx:id="requestHeadersTable">
+                        <columns>
+                            <TableColumn fx:id="headerNameColumn" text="Name" prefWidth="150"/>
+                            <TableColumn fx:id="headerValueColumn" text="Value" prefWidth="250"/>
+                        </columns>
+                    </TableView>
+                </Tab>
+            </TabPane>
+        </VBox>
+
+        <VBox spacing="5" minWidth="500">
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <Label text="Response" style="-fx-font-weight: bold;"/>
+                <Label fx:id="responseTimeLabel"/>
+            </HBox>
+            <TabPane VBox.vgrow="ALWAYS">
+                <Tab text="Raw" closable="false">
+                    <VBox>
+                        <LineNumberedTextArea fx:id="rawResponseArea" VBox.vgrow="ALWAYS"/>
+                    </VBox>
+                </Tab>
+                <Tab text="Headers" closable="false">
+                    <TableView fx:id="responseHeadersTable">
+                        <columns>
+                            <TableColumn fx:id="responseHeaderNameColumn" text="Name" prefWidth="150"/>
+                            <TableColumn fx:id="responseHeaderValueColumn" text="Value" prefWidth="250"/>
+                        </columns>
+                    </TableView>
+                </Tab>
+            </TabPane>
+        </VBox>
+    </SplitPane>
+
+    <HBox alignment="CENTER_LEFT">
+        <Label fx:id="statusLabel"/>
+    </HBox>
+
+</VBox>

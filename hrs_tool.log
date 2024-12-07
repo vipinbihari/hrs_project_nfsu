@@ -1,0 +1,5 @@
+[2024-12-06 14:27:12.533] [JavaFX Application Thread] [INFO] Initializing MainController
+[2024-12-06 14:27:12.534] [JavaFX Application Thread] [DEBUG] Setting up UI components
+[2024-12-06 14:27:12.535] [JavaFX Application Thread] [INFO] Initializing TableManager
+[2024-12-06 14:27:12.535] [JavaFX Application Thread] [DEBUG] Setting up table columns and data
+[2024-12-06 14:31:03.852] [JavaFX Application Thread] [INFO] Initializing MainController

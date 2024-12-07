@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="10" alignment="CENTER" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.hrs.MainController">
+    
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+
+    <!-- Top controls that should not expand -->
+    <VBox spacing="10" VBox.vgrow="NEVER">
+        <HBox spacing="10" alignment="CENTER_LEFT">
+            <RadioButton fx:id="urlModeRadio" text="URL Mode" selected="true">
+                <toggleGroup>
+                    <ToggleGroup fx:id="modeToggle"/>
+                </toggleGroup>
+            </RadioButton>
+            <RadioButton fx:id="fileModeRadio" text="File Mode" toggleGroup="$modeToggle"/>
+        </HBox>
+        
+        <HBox spacing="10" alignment="CENTER_LEFT">
+            <!-- URL Input Mode -->
+            <VBox spacing="5" HBox.hgrow="ALWAYS" fx:id="urlInputBox">
+                <Label text="Target URL:" />
+                <TextField fx:id="urlField" promptText="Enter target URL with endpoint" />
+            </VBox>
+            
+            <!-- File Input Mode -->
+            <VBox spacing="5" HBox.hgrow="ALWAYS" fx:id="fileInputBox" visible="false" managed="false">
+                <Label text="URLs File:" />
+                <HBox spacing="5">
+                    <TextField fx:id="urlFileField" promptText="Select file containing URLs" HBox.hgrow="ALWAYS" />
+                    <Button text="Browse" onAction="#chooseUrlFile" />
+                </HBox>
+            </VBox>
+            
+            <VBox spacing="5" HBox.hgrow="ALWAYS">
+                <Label text="Virtual Host:" />
+                <TextField fx:id="vhostField" promptText="(Optional) Specify virtual host" />
+            </VBox>
+            
+            <VBox spacing="5">
+                <Label text="HTTP Method:" />
+                <ComboBox fx:id="methodComboBox" promptText="POST" maxWidth="Infinity" />
+            </VBox>
+        </HBox>
+       
+        <HBox spacing="10" alignment="CENTER_LEFT">
+            <!-- Log File -->
+            <VBox spacing="5" HBox.hgrow="ALWAYS">
+                <Label text="Log File:" />
+                <HBox spacing="5">
+                    <TextField fx:id="logFileField" promptText="(Optional) Specify log file path" HBox.hgrow="ALWAYS" />
+                    <Button text="Browse" onAction="#chooseLogFile" />
+                </HBox>
+            </VBox>
+            
+            <!-- Config File -->
+            <VBox spacing="5" HBox.hgrow="ALWAYS">
+                <Label text="Config File:" />
+                <HBox spacing="5">
+                    <TextField fx:id="configFileField" promptText="(Optional) Select payload config file" HBox.hgrow="ALWAYS" />
+                    <Button text="Browse" onAction="#chooseConfigFile" />
+                </HBox>
+            </VBox>
+            
+            <!-- Timeout -->
+            <VBox spacing="5">
+                <Label text="Timeout (seconds):" />
+                <Spinner fx:id="timeoutSpinner" editable="true" prefWidth="90" />
+            </VBox>
+        </HBox>
+
+        <!-- Checkboxes -->
+        <VBox spacing="5">
+            <CheckBox fx:id="exitEarlyCheckBox" text="Exit on first finding" />
+            <CheckBox fx:id="quietModeCheckBox" text="Quiet mode (log issues only)" />
+            <CheckBox fx:id="noColorCheckBox" text="No color output" />
+        </VBox>
+    </VBox>
+
+    <!-- Content area that should expand -->
+    <VBox VBox.vgrow="ALWAYS" spacing="10">
+        <!-- Table View -->
+        <HBox spacing="10" alignment="CENTER_LEFT">
+            <Label text="Scan Results" style="-fx-font-weight: bold;"/>
+            <Button text="Repeater" onAction="#openRepeater"/>
+            <Button text="Clear Rows" onAction="#clearTableRows"/>
+        </HBox>
+        <TableView fx:id="dataTable" VBox.vgrow="ALWAYS">
+            <columns>
+                <TableColumn text="URL" fx:id="urlColumn" prefWidth="200" resizable="true"/>
+                <TableColumn text="Method" fx:id="methodColumn" prefWidth="100" resizable="true"/>
+                <TableColumn text="TE Header" fx:id="teHeaderColumn" prefWidth="200" resizable="true"/>
+                <TableColumn text="Payload" fx:id="payloadColumn" prefWidth="300" resizable="true"/>
+            </columns>
+            <columnResizePolicy>
+                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+            </columnResizePolicy>
+        </TableView>
+        
+        <!-- Output Area -->
+        <TextArea fx:id="outputArea" wrapText="true" editable="false" VBox.vgrow="ALWAYS"/>
+    </VBox>
+
+    <!-- Bottom controls that should not expand -->
+    <HBox spacing="10" alignment="CENTER" VBox.vgrow="NEVER">
+        <Button fx:id="startButton" text="Start Scan" onAction="#startScan" styleClass="button-primary"/>
+        <Button text="Stop" onAction="#stopScan" disable="true" fx:id="stopButton"/>
+        <Button text="Clear Log" onAction="#clearLog"/>
+    </HBox>
+</VBox>
