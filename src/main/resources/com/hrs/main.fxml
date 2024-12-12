@@ -104,7 +104,7 @@
         </TableView>
         
         <!-- Output Area -->
-        <TextArea fx:id="outputArea" wrapText="true" editable="false" VBox.vgrow="ALWAYS"/>
+        <TextArea fx:id="outputArea" wrapText="true" editable="false" VBox.vgrow="ALWAYS" minHeight="100"/>
     </VBox>
 
     <!-- Bottom controls that should not expand -->

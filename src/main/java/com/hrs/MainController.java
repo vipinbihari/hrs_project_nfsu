@@ -17,6 +17,7 @@ import javafx.scene.control.*; // Importing JavaFX controls for UI components
 import javafx.scene.control.cell.PropertyValueFactory; // Importing PropertyValueFactory for table column bindings
 import javafx.scene.layout.VBox; // Importing VBox layout for arranging UI components vertically
 import javafx.stage.FileChooser; // Importing FileChooser for file selection dialogs
+import javafx.stage.Screen; // Importing Screen for getting screen bounds
 import javafx.stage.Stage; // Importing Stage for window representation
 import java.io.File; // Importing File for file handling
 import java.io.IOException; // Importing IOException for handling I/O exceptions
@@ -123,6 +124,21 @@ public class MainController {
         
         // Calls method to setup event handlers
         setupEventHandlers();
+        
+        outputArea.sceneProperty().addListener((observable, oldScene, newScene) -> {
+            if (newScene != null) {
+                newScene.windowProperty().addListener((obs, oldWindow, newWindow) -> {
+                    if (newWindow != null) {
+                        // Get the primary screen's visual bounds
+                        javafx.geometry.Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
+                        
+                        // Set the stage height to 80% of the screen height
+                        Stage primaryStage = (Stage) newWindow;
+                        primaryStage.setHeight(screenBounds.getHeight() * 0.95);
+                    }
+                });
+            }
+        });
     }
 
     /**
